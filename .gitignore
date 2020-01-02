@@ -1,11 +1,2 @@
 node_modules/
-build/
-.vscode
-.idea/
-.DS_Store
-gradingRubrics/
-*.bak
-Solved/
-Solutions/
-Master/
 
