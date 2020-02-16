@@ -1,3 +1,4 @@
+var notes = require("../db")
 var path = require("path");
 
 module.exports = function(app) {
