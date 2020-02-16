@@ -1,7 +1,8 @@
 var noteArray = [
     {
         noteTitle: "Example Title",
-        noteText: "Example text."
+        noteText: "Example text.",
+        noteID: "1"
     }
 ]
 

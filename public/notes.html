@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Note Taker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
@@ -58,12 +58,8 @@
           <div class="card-header">
             <h4>Saved Notes</h4>
           </div>
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title" id="noteTitle">Card title</h5>
-              <p class="card-text" id="noteText">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-danger">Go somewhere</a>
-            </div>
+          <div class="card-body">
+            <ul id="savedCard" class="list-group"></ul>
           </div>
         </div>
       </div>
@@ -74,36 +70,41 @@
 
 <script type="text/javascript">
 
-$(".submit").on("click", function(event) {
-  event.preventDefault();
+  $(".submit").on("click", function (event) {
+    event.preventDefault();
 
-  var newNote = {
-    noteTitle: $("#note-title").val().trim(),
-    noteText: $("#note-text").val().trim(),
-  };
+    var newNote = {
+      noteTitle: $("#note-title").val().trim(),
+      noteText: $("#note-text").val().trim(),
+    };
 
-  console.log(newNote);
+    console.log(newNote);
 
-  $.post("/api/notes", newNote,
-  function(data) {
-    $("#note-title").val("");
-    $("#note-text").val("");
+    $.post("/api/notes", newNote,
+      function (data) {
+        $("#note-title").val("");
+        $("#note-text").val("");
+      });
+
+    function popNotes() {
+      $.ajax({ url: "/api/notes", method: "GET" })
+        .then(function (noteData) {
+          console.log(noteData);
+
+          for (var i = 0; i < noteData.length; i++) {
+            var savedNotes = $("#savedNotes");
+
+            var savedCard = $("<li class='list-group-item mt-4'>");
+
+            savedCard.append(
+              $("<h2>").text(noteData[i].noteTitle),
+              $("<h5>").text(noteData[i].noteText111)
+            );
+            
+            savedNotes.append(savedCard);
+          }
+        });
+    }
+    popNotes();
   });
-
-  function popNotes() {
-    $.ajax({ url: "/api/notes", method: "GET" })
-    .then(function(noteData) {
-      console.log(noteData);
-
-      for (var i = 0; i < noteData.length; i++) {
-        var noteTitle = $("#noteTitle");
-        var noteText = $("#noteText");
-
-        var savedCard =$("")
-
-        noteTitle.append
-      }
-    })
-  }
-});
 </script>

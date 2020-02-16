@@ -1,5 +1,5 @@
 var $noteTitle = $(".note-title");
-var $noteText = $(".note-textarea");
+var $noteText = $(".note-text");
 var $saveNoteBtn = $(".save-note");
 var $newNoteBtn = $(".new-note");
 var $noteList = $(".list-container .list-group");
@@ -39,13 +39,17 @@ var renderActiveNote = function() {
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
+    $noteID.attr("readonly", true);
     $noteTitle.val(activeNote.title);
     $noteText.val(activeNote.text);
+    $noteID.val(activeNote.id);
   } else {
     $noteTitle.attr("readonly", false);
     $noteText.attr("readonly", false);
+    $noteID.attr("readonly", false);
     $noteTitle.val("");
     $noteText.val("");
+    $noteID.val("")
   }
 };
 
@@ -53,7 +57,8 @@ var renderActiveNote = function() {
 var handleNoteSave = function() {
   var newNote = {
     title: $noteTitle.val(),
-    text: $noteText.val()
+    text: $noteText.val(),
+    id: $noteID.val()
   };
 
   saveNote(newNote).then(function(data) {
